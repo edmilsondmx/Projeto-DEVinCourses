@@ -163,7 +163,7 @@ namespace NDDTraining.Domain.Services
                 return false;
         }
 
-        public bool validSize(string b64)
+        public bool ValidSize(string b64)
         {
             throw new NotImplementedException();
         }

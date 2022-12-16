@@ -1,4 +1,5 @@
-﻿using NDDTraining.Domain.Interfaces.Repositories;
+﻿using NDDTraining.Domain.DTOS;
+using NDDTraining.Domain.Interfaces.Repositories;
 using NDDTraining.Domain.Models;
 using NDDTraining.Infra.Data.Context;
 
@@ -32,6 +33,12 @@ namespace NDDTraining.Infra.Data.Repository
         public User CheckResetEmail(string email)
         {
            return _context.Users.Where(u => u.Email == email).FirstOrDefault();  
+        }
+
+        public User GetAll()
+        {
+            return _context.Users.First();
+           
         }
     }
 }

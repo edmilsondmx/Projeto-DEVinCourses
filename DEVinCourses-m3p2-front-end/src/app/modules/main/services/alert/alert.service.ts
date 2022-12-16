@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
+import { TrainingService } from 'src/app/services/training/training.service';
 import Swal from 'sweetalert2';
+import { TrainingComponent } from '../../pages/training/training.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
 
-  constructor() { }
+  constructor(private trainingService:TrainingService) { }
 
-  alertDeleteTraining(){
+  alertDeleteTraining(id:number){
     Swal.fire({
       title: 'Deseja excluir o treinamento?',      
       showCancelButton: true,
@@ -17,6 +19,8 @@ export class AlertService {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+        this.trainingService.deleteRegistration(id).subscribe();
+        //TODO: chamar função delete api
         Swal.fire('Excluido!', '', 'success')
       } else if (result.isDenied) {
         Swal.fire('Não excluido', '', 'info')

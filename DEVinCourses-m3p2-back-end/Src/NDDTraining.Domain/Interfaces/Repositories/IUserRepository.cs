@@ -11,6 +11,7 @@ namespace NDDTraining.Domain.Interfaces.Repositories
     public interface IUserRepository
     {
         User GetByEmail(string email);
+        public User GetAll();
         public User CheckUserByEmail(string email);
         public User CheckUserByCPF(string cpf);
         public User GetById(int id);

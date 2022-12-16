@@ -18,15 +18,17 @@ namespace NDDTraining.Domain.Services
         private readonly IEmailService _emailService;
         private readonly IUserService _userService;
         private readonly ITrainingService _trainingService;
+        private readonly IUserRepository _user;
 
 
 
-        public RegistrationService(IRegistrationRepository registrationRepository, IEmailService emailService, ITrainingService trainingService
+        public RegistrationService(IRegistrationRepository registrationRepository, IEmailService emailService, ITrainingService trainingService,
+            IUserRepository user
             )
         {
             _registrationRepository = registrationRepository;
             _emailService = emailService;
-            // _userService = userService;
+            _user = user;
             _trainingService = trainingService;
         }
 
@@ -44,18 +46,13 @@ namespace NDDTraining.Domain.Services
             _registrationRepository.Insert(new Registration(registration));
 
             var training = _trainingService.GetById(registration.TrainingId);
-            var user = new User()
-            {
-                Id = 0,
-                Age = 23,
-                Email = "user@gmail.com",
-                Name = "User",
 
-            };
+            var user = _user.GetById(registration.UserId);
 
-            SendEMail(training.Title, user, training.Description, training.Duration, training.Teacher, training.Url);
+           
 
-
+      
+            SendEMail(training.Title, user, user.Name,user.Email, training.Description, training.Duration, training.Teacher, training.Url);
         }
 
         public void ValidateRegistration() { 
@@ -68,6 +65,8 @@ namespace NDDTraining.Domain.Services
         public void SendEMail(
              string nameCourse,
              User user,
+             string name,
+             string email,
              string description,
              TimeSpan duration,
              string teacher,
@@ -83,6 +82,8 @@ namespace NDDTraining.Domain.Services
                 Parameters = new Dictionary<string, string>()
             {
                 {"training", nameCourse},
+                {"email", email},
+                 {"name", name },
                 {"description", description},
                 {"duration", duration.ToString() },
                 {"teacher",teacher },
@@ -114,7 +115,10 @@ namespace NDDTraining.Domain.Services
        public IList<RegistrationDTO> GetRegistrationsByUser(int userId, string status, Paging paging)
         {
             IEnumerable<Registration> trainingWithRegisters = _registrationRepository
-                    .GetRegistrationsByUser(userId, paging);
+                .GetRegistrationsByUser(userId, paging);
+
+            if(trainingWithRegisters.Count() == 0)
+                throw new NotFoundException("nenhum registro encontrado!");
 
             if(!String.IsNullOrEmpty(status))
             {

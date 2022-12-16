@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using NDDTraining.Domain.DTOS;
 using NDDTraining.Domain.Interfaces.Repositories;
 using NDDTraining.Domain.Interfaces.Services;
+using NDDTraining.Domain.Models;
 
 namespace NDDTraining.Domain.Services
 {
@@ -45,6 +46,16 @@ namespace NDDTraining.Domain.Services
         List<ModuleDTO> IModuleService.GetModule()
         {
             throw new NotImplementedException();
+        }
+
+        public void Insert(int idTraining, Training training)
+        {
+            //insere em cada módulo do curso o id e adciona ao banco de dados
+            foreach (var module in training.Modules)
+            {
+                module.TrainingId = idTraining;
+                _moduleRepository.Insert(module);
+            }
         }
     }
 }

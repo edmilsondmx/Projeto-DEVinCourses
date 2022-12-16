@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { off } from 'process';
+import { ICompletedModule } from 'src/app/models/completedModule';
 import { IModule } from 'src/app/models/modules';
+import { IRegistration } from 'src/app/models/registration';
 import { ITraining } from 'src/app/models/training';
 import { TrainingService } from '../../../../services/training/training.service';
 const YTPlayer = require('yt-player');
@@ -56,19 +59,24 @@ export class TrainingVideoComponent implements OnInit {
     private router:Router,
     private serviceTitle:Title) { }
 
-  training!:ITraining | null;
+  registration!:IRegistration | null;
   modules!:IModule[];
+  completedModule:ICompletedModule = {
+    id:0,
+    moduleId:0,
+    registrationId:0
+  };
   
   ngOnInit(): void {
     this.serviceTitle.setTitle('NDD Training - Video');
-    this.training =  this.trainingService.returnTraining();
-    this.getModulesByTrainingId(this.training?.id);
+    this.registration =  this.trainingService.returnRegistration();
+    this.getModulesByTrainingId(this.registration.trainingId);
 
-    if(this.training == null)
+    if(this.registration == null)
       this.router.navigate(['home/trainings']);
   }
 
-  getModulesByTrainingId(id:number){
+  getModulesByTrainingId(id:number | undefined){
     this.trainingService.getModulesByTrainingId(id)
     .subscribe((modules:IModule[]) => {
       this.modules = modules;
@@ -87,14 +95,15 @@ export class TrainingVideoComponent implements OnInit {
       timeupdateFrequency: 5000,
     });
 
-
+    this.completedModule.moduleId = module.id;
+    this.completedModule.registrationId = this.registration?.id;
 
     let progressBar: any;
     let idDinamico: any;
     let totalPorcent: number;
     let totalVideo: number;
     let tempoAtual: number;
-    let porcent: number;
+    let porcent: number = 0;
     let varAux: number;
 
     this.player.load(module?.link) // https://youtube.com/embed/
@@ -120,16 +129,21 @@ export class TrainingVideoComponent implements OnInit {
         progressBar.style.width = `${porcent}%`;
       }
 
-
       if(porcent > 94){
-       idDinamico.style.visibility= 'hidden'
-       //postCompletedModule()
+        idDinamico.style.visibility= 'hidden'
       }
+
       if(porcent > 96){
        //getCompletedModuleByModuleId()
 
       }
     });
 
+
+  }
+
+  postCompletedModule(completedModule:ICompletedModule){
+    this.trainingService.postCompletedModule(completedModule);
+    console.log(completedModule)
   }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using NDDTraining.Domain.DTOS;
 
 namespace NDDTraining.Domain.Models
 {
@@ -29,6 +30,17 @@ namespace NDDTraining.Domain.Models
             Duration = duration;
             Active = active;
             Category = category;
+        }
+
+        public Training(TrainingDTO training)
+        {
+            Url =  training.Url;
+            Title = training.Title;
+            Description = training.Description;
+            Teacher = training.Teacher;
+            Duration =  training.Duration;
+            Active = training.Active;
+            Category = training.Category;
         }
     }
 }

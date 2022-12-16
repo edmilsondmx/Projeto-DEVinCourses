@@ -15,11 +15,12 @@ import { TrainingService } from 'src/app/services/training/training.service';
 })
 export class TrainingComponent implements OnInit {
 
+  registrationsByUser:any[] = [];
   trainingsByUser: ITraining[] = [];
   UserActive!:IUser;
 
   status: string = 'todos';
-  filters: ITraining[] = [];
+  filters: any[] = [];
 
   userId!: number;
 
@@ -40,19 +41,28 @@ export class TrainingComponent implements OnInit {
     .subscribe((user:IUser) => {
       this.UserActive = user;
       this.getMyTrainings(user?.id);
+      this.obterMatriculasPorUsuario(user?.id);
     })
   }
 
   getMyTrainings(id: number| undefined){
     this.trainingService.getTrainingsByUser(id)
     .subscribe((trainingsByUser:ITraining[])=>{
-      this.trainingsByUser = trainingsByUser
-      this.filterByStatus()
+      this.trainingsByUser = trainingsByUser;
+      this.filterByStatus();
+    })
+  }
+
+  obterMatriculasPorUsuario(id:number | undefined){
+    this.trainingService.getRegistrationByUser(id)
+    .subscribe((registrations:any[]) => {
+      this.registrationsByUser = registrations;
+      this.filterByStatus();
     })
   }
 
   getMyTrainingsByStatus(id:number | undefined, status:string){
-    this.trainingService.getRegistrationByUser(id, status)
+    this.trainingService.getRegistrationByUserStatus(id, status)
     .subscribe((registration: IRegistration[])=>{
       for (let i = 0; i < registration.length; i++) {
         this.trainingsByUser.forEach(item => {
@@ -82,7 +92,7 @@ export class TrainingComponent implements OnInit {
   filterByStatus() {
     this.filters = [];
     if (this.status == 'todos') {
-      this.filters = this.trainingsByUser;
+      this.filters = this.registrationsByUser;
     } else if (this.status === 'Recentes') {
       this.getRecentTrainingsByUser(this.userId);
     } else {

@@ -20,7 +20,8 @@ namespace NDDTraining.DI.IOC
                   .AddScoped<ITrainingRepository, TrainingRepository>()
                   .AddScoped<IRegistrationRepository, RegistrationRepository>()
                   .AddScoped<IUserRepository, UserRepository>()
-                  .AddScoped<ICompletedModuleRepository, CompletedModuleRepository>();
+                  .AddScoped<ICompletedModuleRepository, CompletedModuleRepository>()
+                  .AddScoped<ITrainingActivityRepository, TrainingActivityRepository>();
         }
     }
 }

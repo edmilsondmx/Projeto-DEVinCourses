@@ -1,17 +1,17 @@
 <div class="card shadow cardTraining">
-    <div (click)="selectTraining(item)">
-        <img src="{{ item.url }}" class="card-img-top imgCard" alt="...">
+    <div (click)="selectTraining(registration)">
+        <img src="{{ registration.training.url }}" class="card-img-top imgCard" alt="...">
         <div class="card-body padding">
-          <h6 class="card-title ">{{ item.title }}</h6>
+          <h6 class="card-title ">{{ registration.training.title }}</h6>
           <div ><img id='imgFinalizado' src="https://img.icons8.com/color/48/000000/approval--v1.png"/></div>
-          <p class="card-text descricaoCurso overflow-hidden padding">{{ item.description }}</p>
+          <p class="card-text descricaoCurso overflow-hidden padding">{{ registration.training.description }}</p>
         </div>
         <div class="text-center">
-            <p class="cargaHoraria ">Professor: {{ item.teacher }}</p>  
-            <p class="cargaHoraria ">Carga Horária: {{ formatarDuracao(item.duration) }} horas</p>  
+            <p class="cargaHoraria ">Professor: {{ registration.training.teacher }}</p>  
+            <p class="cargaHoraria ">Carga Horária: {{ formatarDuracao(registration.training.duration) }} horas</p>  
         </div>
     </div>
     <div class="text-center mb-3">
-        <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeTraining()">Remover</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" (click)="removeTraining(registration.id)">Remover</button>
     </div>
 </div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NDDTraining.Domain.DTOS;
 using NDDTraining.Domain.Interfaces.Services;
 using NDDTraining.Domain.Models;
@@ -8,6 +9,7 @@ namespace NDDTraining.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    //[Authorize]
 
 
     public class RegistrationsController : Controller
@@ -20,24 +22,20 @@ namespace NDDTraining.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            try
-            {
+           
                 return Ok(_registrationService.GetAll());
-            }
-            catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
+           
+           
         }
 
         [HttpGet]
         [Route("~/api/Users/{userId}/Registrations")]
         public IActionResult GetByUser(
-                    [FromRoute] int userId,
-                    [FromQuery] string status,
-                    int skip = 0,
-                    int take = 20
-                )
+            [FromRoute] int userId,
+            [FromQuery] string status,
+            int skip = 0,
+            int take = 20
+        )
         {
             var paging = new Paging(skip, take);
             return Ok(_registrationService.GetRegistrationsByUser(userId, status, paging));

@@ -5,6 +5,9 @@ namespace NDDTraining.Domain.Interfaces.Services
 {
     public interface IUserService
     {
+
+
+        public bool validSize(string b64);
         User GetUser(string email);
         void InsertUser(UserDTO newUser);
         void Update(UserDTO changedUser, int id);
@@ -12,6 +15,5 @@ namespace NDDTraining.Domain.Interfaces.Services
         string Reset(string email);
         string VerifyToken(ResetDTO resetDTO);
         public bool InvalidSize(string b64);
-        public bool ValidSize(string b64);
     }
 }

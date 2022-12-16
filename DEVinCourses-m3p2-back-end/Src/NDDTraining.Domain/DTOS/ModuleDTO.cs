@@ -10,7 +10,7 @@ namespace NDDTraining.Domain.DTOS
     public class ModuleDTO
     {
         public int Id { get; set; }
-        public int TrainingId { get; set; }
+        public int? TrainingId { get; set; }
         public string TitleModule { get; set; }
         public string Link { get; set; }
         public string Image { get; set; }

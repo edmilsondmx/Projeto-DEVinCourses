@@ -21,7 +21,19 @@ export class HomeComponent implements OnInit {
     id:0,
     userId: 0,
     trainingId:0,
-    status:0
+    status:0,
+    training: {
+      id: 1,
+      url: '',
+      title: '',
+      description: '',
+      teacher: '',
+      duration: 0,
+      active: true,
+      category: '',
+      date: new Date,
+      modules:[]
+    }
   };
   userActive!:IUser;
 

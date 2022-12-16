@@ -153,6 +153,12 @@ namespace NDDTraining.Domain.Services
             return id;
         }
 
+
+        public bool validSize(string b64)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool InvalidSize(string b64)
         {
             var tamanho = b64.Length;
@@ -163,9 +169,5 @@ namespace NDDTraining.Domain.Services
                 return false;
         }
 
-        public bool ValidSize(string b64)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

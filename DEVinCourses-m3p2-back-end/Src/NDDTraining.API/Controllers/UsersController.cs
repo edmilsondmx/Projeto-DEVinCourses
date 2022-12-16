@@ -17,7 +17,7 @@ namespace NDDTraining.API.Controllers
         {
             _userService = userService;
             _emailService = emailService;
-                
+
         }
 
         [HttpPut("{id}")]
@@ -27,7 +27,7 @@ namespace NDDTraining.API.Controllers
             [FromRoute] int id
         )
         {
-            if (_userService.validSize(changedUser.Image))
+            if (_userService.InvalidSize(changedUser.Image))
             {
                 changedUser.Image = String.Empty;
             }
@@ -35,7 +35,7 @@ namespace NDDTraining.API.Controllers
 
             return NoContent();
         }
-    
+
         [HttpPost]
         public IActionResult Post(
             [FromBody] UserDTO newUser
@@ -49,7 +49,7 @@ namespace NDDTraining.API.Controllers
             return Created("registration", newUser.Id);
         }
 
-   
+
         [HttpGet]
         [Authorize]
         public IActionResult GetUser()

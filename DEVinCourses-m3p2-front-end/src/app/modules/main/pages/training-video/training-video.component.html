@@ -7,7 +7,7 @@
 
                   <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
                   <li class="breadcrumb-item"><a routerLink="/home/trainings">Meus Cursos</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">{{ training?.title }}</li>
+                  <li class="breadcrumb-item active" aria-current="page">{{ registration?.training?.title }}</li>
 
                 </ol>
             </nav>
@@ -17,7 +17,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12 m-2">
-            <h4>{{ training?.title }}</h4>
+            <h4>{{ registration?.training?.title }}</h4>
         </div>
     </div>
 </div>
@@ -30,7 +30,7 @@
         </div>
         <div class="col-md-5 col-sm-12">
             <div class="container">
-                <h6>Módulos: {{ training?.modules?.length }}</h6>
+                <h6>Módulos: {{ registration?.training?.modules?.length }}</h6>
                 <div class="list-group container modules">
                     <a class="list-group-item list-group-item-action bg-secondary">
                         <div *ngFor="let module of modules" class="card m-2 card-video" (click)="callVideo(module)">

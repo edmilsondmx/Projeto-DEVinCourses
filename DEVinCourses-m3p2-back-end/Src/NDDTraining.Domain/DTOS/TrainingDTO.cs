@@ -13,24 +13,13 @@ namespace NDDTraining.Domain.DTOS
         public TimeSpan Duration { get; set; }
         public bool Active { get; set; }
         public string Category { get; set; }
-        // public virtual List<Module> Module { get; set; }
 
         public TrainingDTO()
 		{
-		}
+        }
         public TrainingDTO(Training training)
         {
             Id = training.Id;
-            Url = training.Url;
-            Title = training.Title;
-            Description = training.Description;
-            Teacher = training.Teacher;
-            Duration = training.Duration;
-            Active = training.Active;
-            Category = training.Category;
-        }
-        public TrainingDTO(TrainingDTO training)
-        {
             Url = training.Url;
             Title = training.Title;
             Description = training.Description;

@@ -13,7 +13,8 @@ namespace NDDTraining.DI.IOC
                 .AddScoped<ITrainingService, TrainingService>()
                 .AddScoped<IRegistrationService, RegistrationService>()
                 .AddScoped<IUserService, UserService>()
-                .AddScoped<ICompletedModuleService, CompletedModuleService>();
+                .AddScoped<ICompletedModuleService, CompletedModuleService>()
+                .AddScoped<ITrainingActivityService, TrainingActivityService>();
         }
     }
 }

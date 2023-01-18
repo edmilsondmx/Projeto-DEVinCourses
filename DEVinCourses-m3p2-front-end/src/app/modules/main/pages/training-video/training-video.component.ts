@@ -137,13 +137,17 @@ export class TrainingVideoComponent implements OnInit {
        //getCompletedModuleByModuleId()
 
       }
+
+      if(porcent == 100){
+        this.postCompletedModule(this.completedModule);
+      }
     });
 
 
   }
 
   postCompletedModule(completedModule:ICompletedModule){
-    this.trainingService.postCompletedModule(completedModule);
+    //this.trainingService.postCompletedModule(completedModule);
     console.log(completedModule)
   }
 }
